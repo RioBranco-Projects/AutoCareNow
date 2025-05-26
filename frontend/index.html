@@ -1,20 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
 
-    <h1>Faça login</h1>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+</head>
 
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e1dddd;
+  }
+
+  .form {
+    max-width: 300px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    padding: 30px 50px;
+    border-radius:8px;
+  }
+  .form input{
+    padding: 5px;
+    border-radius: 3px ;
+    border: solid gray 1px;
+    outline: none;
+  }
+
+  .form button{
+    width: 100px;
+    border-radius: 3px;
+    margin: auto;
+    border: none;
+    padding: 5px;
+    background-color: rgb(181, 176, 176);
+    margin-top: 10px;
+  }
+
+  .form p{
+    margin-left: 35px;
+  }
+
+  .form a{
+  color: black;
+  }
+
+  .form a:hover{
+  color: rgb(26, 85, 127);
+  }
+
+</style>
+
+<body>
+  <div id="root"></div>
+
+
+  <div class="form">
+    <h1>vitor esquisito</h1>
+    <input class="colocarNome" type="text" placeholder="Nome">
     <input class="colocarEmail" type="text" placeholder="E-mail">
     <input class="colocarSenha" type="text" placeholder="Senha">
     <button class="confirmar">Confirmar</button>
+    <a href="#">
+      <p>Esqueci a senha </p>
+    </a>
+  </div>
 
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
