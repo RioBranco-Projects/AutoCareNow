@@ -4,7 +4,7 @@ import { connectToMongo } from './config/mongo.js';
 const app = express();
 app.use(express.json());
 
-app.get('/status', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const db = await connectToMongo();
     const info = await db.admin().serverStatus();
