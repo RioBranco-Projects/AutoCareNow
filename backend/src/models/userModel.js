@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import bcrypt from 'bcrypt';
-import  getDb from '../config/db.js';
+import getDb from '../config/db.js';
 
 const COLLECTION = 'users';
 const SALT_ROUNDS = 10;

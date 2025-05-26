@@ -15,7 +15,7 @@ export default async function getDb() {
   if (!dbInstance) {
     await client.connect();
     dbInstance = client.db();
-    console.log('✔️ MongoDB conectado');
+    console.log('Conectado com o MongoDB pohaaaa!');
   }
   return dbInstance;
 }

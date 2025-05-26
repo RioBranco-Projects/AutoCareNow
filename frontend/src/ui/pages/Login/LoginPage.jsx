@@ -1,28 +1,43 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './LoginPage.module.css';
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
+  const [message, setMessage] = useState('');
+  const navigatee = useNavigate();
   const enviarLogin = async () => {
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    });
+    try {
+      const resp = await fetch('http://localhost:3000/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
 
-    const data = await response.json();
-    console.log(data);
+      if (!resp.ok) throw new Error('Erro ao fazer login');
 
-  }
+      const data = await resp.json();     // --> dados do backend
+      console.log(data);
+
+      setMessage('Login realizado com sucesso!');
+      setTimeout(() => setMessage(''), 2000);
+      navigatee('/home');
+    } catch (err) {
+      setMessage(err.message || 'Falha inesperada');
+      setTimeout(() => setMessage(''), 2000);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') enviarLogin();
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.card}>
         <h1 className={styles.title}>Entrar</h1>
 
-        <form className={styles.form}>
+        <div className={styles.form}>
           <input
             type="email"
             placeholder="Email"
@@ -36,13 +51,14 @@ export default function Login() {
             placeholder="Senha"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
+            onKeyDown={handleKeyDown}
             className={styles.input}
           />
 
-          <button type="submit" onClick={enviarLogin} className={styles.button}>
+          <button type="button" onClick={enviarLogin} className={styles.button}>
             Acessar
           </button>
-        </form>
+        </div>
 
         <p className={styles.smallText}>
           Não tem cadastro?{' '}
@@ -50,6 +66,8 @@ export default function Login() {
             Criar conta
           </Link>
         </p>
+
+        {message && <p className={styles.message}>{message}</p>}
       </div>
     </section>
   );

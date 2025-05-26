@@ -3,11 +3,12 @@ import * as C from '../controllers/userController.js';
 
 const router = Router();
 
-router.get('/', C.list);
-router.post('/', C.validators.validateBody, C.createUser);
-router.post('/login', C.validators.validateLoginBody, C.login);
-router.get('/:id', C.validators.validateId, C.get);
-router.put('/:id', C.validators.validateId, C.validators.validateBody, C.updateUser);
-router.delete('/:id', C.validators.validateId, C.deleteUser);
+router.post('/login', C.loginUser);
+
+router.post('/', C.createUser);
+router.get('/', C.listUsers);
+router.get('/:id', C.getUser);
+router.put('/:id', C.updateUser);
+router.delete('/:id', C.deleteUser);
 
 export default router;
