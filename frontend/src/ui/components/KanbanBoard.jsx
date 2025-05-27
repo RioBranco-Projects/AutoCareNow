@@ -24,8 +24,8 @@ export default function KanbanBoard({ columns }) {
                 <p className={styles.cardSubtitle}>{card.subtitle}</p>
                 <p className={styles.cardDetails}>{card.details}</p>
                 <div className={styles.cardInfo}>
-                  <small>Criado: {card.createdAt ? new Date(card.createdAt).toLocaleString() : '—'}</small>
-                  <small>Atualizado: {card.updatedAt ? new Date(card.updatedAt).toLocaleString() : '—'}</small>
+                  <small>Criado: {card.createdAt}</small>
+                  <small>Atualizado: {card.updatedAt}</small>
                 </div>
               </div>
             ))}

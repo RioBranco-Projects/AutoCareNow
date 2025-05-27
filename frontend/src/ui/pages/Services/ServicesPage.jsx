@@ -41,6 +41,8 @@ export default function ServicesPage() {
         title: s.services,
         subtitle: `Cliente: ${s.customerName}`,
         details: `Veículo: ${s.vehicle}`,
+        createdAt: new Date(s.createdAt).toLocaleString(),
+        updatedAt: new Date(s.updatedAt).toLocaleString(),
       })),
   }));
 
@@ -52,15 +54,19 @@ export default function ServicesPage() {
   };
 
   const navLinks = [
-    { to: '/home',     label: 'Home' },
     { to: '/services', label: 'Serviços' },
-    { to: '/profile',  label: 'Perfil' },
+    { to: '/profile',  label: 'Clientes' },
+    { to: '/finance',  label: 'Financeiro' },
+    { to: '/products',  label: 'Produtos' },
+    { to: '/reports',  label: 'Relatórios' },
+    { to: '/feedback',  label: 'Feedbacks' },
+    { to: '/settings',  label: 'Configurações' },
   ];
 
   return (
     <div className={styles.container}>
       <Header
-        logoSrc="/public/image/logopequena.jpeg"
+        logoSrc="/public/image/logobranca.jpeg"
         navLinks={navLinks}
         onLogout={handleLogout}
         onSettings={handleSettings}
@@ -70,10 +76,10 @@ export default function ServicesPage() {
           <div className={styles.toolbar}>
             <input
               type="text"
-              placeholder="Digite o que deseja pesquisar"
+              placeholder="Procure por uma ordem"
               className={styles.search}
             />
-            <a href="#" className={styles.showAll}>Exibindo tudo</a>
+            <a href="#" className={styles.showAll}>Remover filtro</a>
           </div>
           <div className={styles.boardWrapper}>
             <KanbanBoard columns={columns} />

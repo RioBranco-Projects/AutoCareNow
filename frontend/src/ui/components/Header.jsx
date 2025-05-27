@@ -26,7 +26,9 @@ export default function Header({
     <header className={styles.header}>
       <div className={styles.left}>
         <div className={styles.logo}>
-          <img src={logoSrc} alt="Logo" />
+          <Link to="/home">
+            <img src={logoSrc} alt="Logo" />
+          </Link>
         </div>
       </div>
       <nav className={styles.nav}>
