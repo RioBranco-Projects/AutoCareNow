@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import styles from './styles/Header.module.css';
-import {Links} from 'react-router-dom'
+
 export default function Header({
   logoSrc,
   navLinks = [],
@@ -48,11 +48,9 @@ export default function Header({
             <button onClick={onSettings} className={styles.dropdownItem}>
               Configurações
             </button>
-            <Link to="/">
-              <button onClick={onLogout} className={styles.dropdownItem}>
-                Sair 
-              </button>
-            </Link>
+            <button onClick={onLogout} className={styles.dropdownItem}>
+             Sair 
+            </button>
           </div>
         )}
       </div>
