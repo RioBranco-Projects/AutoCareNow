@@ -11,7 +11,6 @@ export default function Card({ nome, icone, color, iconSize = 62 }) {
       ) : (
         <img src={icone} alt={nome} />
       )}
-
       <h2>{nome}</h2>
     </div>
   );

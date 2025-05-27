@@ -13,7 +13,7 @@ export default function Home() {
   <section className={styles.container}>
       <div className={styles.cards}>
         <Link to="/services">
-          <Card nome="Serviços" icone={IoMdFunnel} color="#1A67BF" />
+          <Card nome="Serviços" icone={IoMdFunnel} color="#3086e8" />
         </Link>
         <Link to="/clients">
           <Card nome="Clientes" icone={IoPeopleOutline} color="#4EB2E7" />
@@ -22,13 +22,13 @@ export default function Home() {
           <Card nome="Configurações" icone={MdMiscellaneousServices} color="#61C1B7" />
         </Link>
         <Link>
-          <Card nome="Produtos" icone={GrCube} color="#E75449" />
+          <Card nome="Produtos" icone={GrCube} color="#80CBC4" />
         </Link>
         <Link>
-          <Card nome="Financeiro" icone={MdAttachMoney} color="#6EC401" />
+          <Card nome="Financeiro" icone={MdAttachMoney} color="#C8E6C9" />
         </Link>
         <Link>
-          <Card nome="Feedbacks" icone={FaSellsy} color="#F09A23"/>
+          <Card nome="Feedbacks" icone={FaSellsy} color="#B3E5FC"/>
         </Link>
       </div>
     </section>

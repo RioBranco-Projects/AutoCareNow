@@ -22,6 +22,7 @@ export default function KanbanBoard({ columns }) {
               <div key={card.id} className={styles.card}>
                 <h3 className={styles.cardTitle}>{card.title}</h3>
                 <p className={styles.cardSubtitle}>{card.subtitle}</p>
+                <p className={styles.cardDescription}>{card.description}</p>
                 <p className={styles.cardDetails}>{card.details}</p>
                 <div className={styles.cardInfo}>
                   <small>Criado: {card.createdAt}</small>
