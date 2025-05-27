@@ -3,39 +3,37 @@ import { useState } from 'react';
 import styles from './LoginPage.module.css';
 
 export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [message, setMessage] = useState('');
-  const navigatee = useNavigate();
+  const [form, setForm]   = useState({ email: '', password: '' });
+  const [msg, setMsg]     = useState({ text: '', type: '' }); // ← texto + tipo
+  const navigate = useNavigate();
+
   const enviarLogin = async () => {
     try {
       const resp = await fetch('http://localhost:3000/users/login', {
-        method: 'POST',
+        method : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body   : JSON.stringify(form),
       });
 
-      if (!resp.ok) throw new Error('Erro ao fazer login');
+      if (!resp.ok) throw new Error('Email ou senha inválidos');
 
-      const data = await resp.json();     // --> dados do backend
-      console.log(data);
+      await resp.json(); // se precisar guardar token, faça aqui
 
-      setMessage('Login realizado com sucesso!');
-      setTimeout(() => setMessage(''), 2000);
-      navigatee('/home');
+      setMsg({ text: 'Login realizado com sucesso!', type: 'success' });
+      setTimeout(() => setMsg({ text: '', type: '' }), 1500);
+      setTimeout(() => navigate('/home'), 1500);
     } catch (err) {
-      setMessage(err.message || 'Falha inesperada');
-      setTimeout(() => setMessage(''), 2000);
+      setMsg({ text: err.message || 'Falha inesperada', type: 'error' });
+      setTimeout(() => setMsg({ text: '', type: '' }), 1500);
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') enviarLogin();
-  };
+  const handleKeyDown = (e) => e.key === 'Enter' && enviarLogin();
 
   return (
     <section className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Entrar</h1>
+        <h1 className={styles.title}>Fazer Login</h1>
 
         <div className={styles.form}>
           <input
@@ -45,7 +43,6 @@ export default function Login() {
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             className={styles.input}
           />
-
           <input
             type="password"
             placeholder="Senha"
@@ -54,7 +51,6 @@ export default function Login() {
             onKeyDown={handleKeyDown}
             className={styles.input}
           />
-
           <button type="button" onClick={enviarLogin} className={styles.button}>
             Acessar
           </button>
@@ -67,7 +63,11 @@ export default function Login() {
           </Link>
         </p>
 
-        {message && <p className={styles.message}>{message}</p>}
+        {msg.text && (
+        <p className={`${styles.message} ${styles[msg.type]}`}>
+          {msg.text}
+        </p>
+      )}
       </div>
     </section>
   );

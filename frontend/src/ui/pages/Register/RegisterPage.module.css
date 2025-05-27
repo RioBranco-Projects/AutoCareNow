@@ -1,4 +1,6 @@
 .container {
+  background-image: url('/public/image/logobranca.jpeg');
+  background-position: center;
   width: 100vw;
   min-height: 100vh;
   display: flex;

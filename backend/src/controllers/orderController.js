@@ -29,12 +29,12 @@ export const getOrder = async (req, res, next) => {
 
 export const createOrder = async (req, res, next) => {
   try {
-    const { customerName, vehicle, services } = req.body;
+    const { customerName, vehicle, services, status } = req.body;
     if (!customerName || !vehicle || !services?.length) {
       return res.status(400).json({ message: 'Dados insuficientes para criação' });
     }
-    const newOrder = await Order.create({ customerName, vehicle, services });
-    res.status(200).json({ message: 'Ordem criada com sucesso' }, newOrder);
+    const newOrder = await Order.create({ customerName, vehicle, services, status });
+    res.status(201).json({ message: 'Ordem criada com sucesso' ,order: newOrder});    
   } catch (err) {
     next(err);
   }

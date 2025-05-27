@@ -1,6 +1,7 @@
 import express from 'express';
 import orderRoutes from './routes/orderRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import session from 'express-session';
 import cors from 'cors';
 const app = express();
 
@@ -10,6 +11,12 @@ const corsOptions = {
 app.use(cors(corsOptions));   
 app.use(express.json());
 
+app.use(session({
+  secret: 'slaslasla', 
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false /* true se HTTPS */, maxAge: 1000 * 60 * 60 },
+}))
 app.use('/users', userRoutes);
 app.use('/orders', orderRoutes);
 
