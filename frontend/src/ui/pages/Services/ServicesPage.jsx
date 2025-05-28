@@ -1,67 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ServicesPage.module.css';
-import KanbanBoard from '../../components/KanbanBoard';
 import Header from '../../components/Header';
-// brevemente vou usar react-beautiful-dnd para fazer o drag and drop do kanban
+import KanbanBoard from '../../components/KanbanBoard';
+import CreateOrderModal from '../../Modals/CreateOrderModal';
+
 export default function ServicesPage() {
-  const [activeTab, setActiveTab] = useState('orders');
   const [services, setServices] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalStatus, setModalStatus] = useState('pending');
   const navigate = useNavigate();
 
+  // Fetch orders
   useEffect(() => {
-    async function fetchServices() {
-      try {
-        const response = await fetch('http://localhost:3000/orders', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!response.ok) throw new Error('Erro ao carregar serviços');
-        const data = await response.json();
-        setServices(data);
-        console.log(data)
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchServices();
+    (async () => {
+      const res = await fetch('http://localhost:3000/orders', { headers: { 'Content-Type': 'application/json' } });
+      const data = await res.json();
+      setServices(data);
+    })();
   }, []);
-  const columns = [
-    { id: 'pending',   title: 'Pendente',     color: '#80cbc4', footer: { label: '+ Nova',   onClick: () => navigate('/services/new') } },
-    { id: 'in_progress',  title: 'Em Progresso', color: '#b2dfdb' },
-    { id: 'completed',      title: 'Concluído',     color: '#c8e6c9' },
-    { id: 'delivered', title: 'Entregue',      color: '#b3e5fc' },
-  ].map(col => ({
-    ...col,
-    cards: services
-      .filter(s => s.status === col.id)
-      .map(s => ({
-        id: s._id,
-        title: s.services,
-        subtitle: `Cliente: ${s.customerName}`,
-        details: `Veículo: ${s.vehicle}`,
-        createdAt: new Date(s.createdAt).toLocaleString(),
-        updatedAt: new Date(s.updatedAt).toLocaleString(),
-      })),
-  }));
 
-  const handleLogout = () => {
-    navigate('/', { replace: true });
-  };
-  const handleSettings = () => {
-    navigate('/settings');
+  // Create order handler
+  const handleCreate = async (orderData) => {
+    await fetch('http://localhost:3000/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData),
+    });
+    setShowModal(false);
+    const res = await fetch('http://localhost:3000/orders', { headers: { 'Content-Type': 'application/json' } });
+    setServices(await res.json());
   };
 
+  const handleLogout = () => { localStorage.removeItem('token'); navigate('/login', { replace: true }); };
+  const handleSettings = () => { navigate('/settings'); };
   const navLinks = [
     { to: '/services', label: 'Serviços' },
     { to: '/profile',  label: 'Clientes' },
-    { to: '/finance',  label: 'Financeiro' },
-    { to: '/products',  label: 'Produtos' },
-    { to: '/reports',  label: 'Relatórios' },
-    { to: '/feedback',  label: 'Feedbacks' },
-    { to: '/settings',  label: 'Configurações' },
   ];
+
+  // Define columns and open modal with correct status
+  const statusKeys = ['pending', 'in_progress', 'completed', 'delivered'];
+  const titles = { pending: 'Pendente', in_progress: 'Em Progresso', completed: 'Concluído', delivered: 'Entregue' };
+  const colors = { pending: '#80cbc4', in_progress: '#b2dfdb', completed: '#c8e6c9', delivered: '#b3e5fc' };
+
+  const columns = statusKeys.map(key => ({
+    id: key,
+    title: titles[key],
+    color: colors[key],
+    footer: { label: '+ Nova', onClick: () => { setModalStatus(key); setShowModal(true); } },
+    cards: services
+      .filter(s => s.status === key)
+      .map(s => ({
+        id:        s._id,
+        title:     s.services,
+        subtitle:  `Cliente: ${s.customerName}`,
+        details:   `Veículo: ${s.vehicle}`,
+        createdAt: new Intl.DateTimeFormat('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }).format(new Date(s.createdAt)),
+        updatedAt: new Intl.DateTimeFormat('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }).format(new Date(s.updatedAt)),
+      })),
+  }));
 
   return (
     <div className={styles.container}>
@@ -71,21 +69,19 @@ export default function ServicesPage() {
         onLogout={handleLogout}
         onSettings={handleSettings}
       />
-      {activeTab === 'orders' && (
-        <>
-          <div className={styles.toolbar}>
-            <input
-              type="text"
-              placeholder="Procure por uma ordem"
-              className={styles.search}
-            />
-            <a href="#" className={styles.showAll}>Remover filtro</a>
-          </div>
-          <div className={styles.boardWrapper}>
-            <KanbanBoard columns={columns} />
-          </div>
-        </>
-      )}
+      <div className={styles.toolbar}>
+        <input type="text" placeholder="Procure por uma ordem" className={styles.search} />
+        <a href="#" className={styles.showAll}>Remover filtro</a>
+      </div>
+      <div className={styles.boardWrapper}>
+        <KanbanBoard columns={columns} />
+      </div>
+      <CreateOrderModal
+        isOpen={showModal}
+        status={modalStatus}
+        onClose={() => setShowModal(false)}
+        onCreate={handleCreate}
+      />
     </div>
   );
 }
