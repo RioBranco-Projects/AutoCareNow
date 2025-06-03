@@ -24,7 +24,7 @@ export default function ServicesPage() {
     }
 
     (async () => {
-      const res = await apiFetch('http://localhost:3000/orders', {}, () => {
+      const res = await apiFetch('https://autocarenow.onrender.com/orders', {}, () => {
         logout();
         navigate('/', { replace: true });
       });
@@ -53,7 +53,7 @@ export default function ServicesPage() {
 
   const handleUpdateCard = async ({ _id, status }) => {
     const res = await apiFetch(
-      `http://localhost:3000/orders/${_id}`,
+      `https://autocarenow.onrender.com/orders/${_id}`,
       {
         method: 'PUT',
         body: JSON.stringify({ status }),
@@ -78,7 +78,7 @@ export default function ServicesPage() {
 
   const handleDeleteCard = async (cardId) => {
     const res = await apiFetch(
-      `http://localhost:3000/orders/${cardId}`,
+      `https://autocarenow.onrender.com/orders/${cardId}`,
       { method: 'DELETE' },
       () => {
         logout();
@@ -98,7 +98,7 @@ export default function ServicesPage() {
 
   const handleCreate = async (orderData) => {
     const res = await apiFetch(
-      'http://localhost:3000/orders',
+      'https://autocarenow.onrender.com/orders',
       {
         method: 'POST',
         body: JSON.stringify(orderData),

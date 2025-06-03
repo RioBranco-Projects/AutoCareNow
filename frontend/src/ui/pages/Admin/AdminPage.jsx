@@ -18,7 +18,7 @@ export default function AdminPage() {
 
     (async () => {
       const res = await apiFetch(
-        'http://localhost:3000/users',
+        'https://autocarenow.onrender.com/users',
         {},
         () => {
           logout();
