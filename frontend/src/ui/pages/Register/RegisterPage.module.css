@@ -77,3 +77,27 @@
   text-decoration: underline;
 }
 
+.message {
+  width: fit-content;           /* fica só do tamanho do texto */
+  margin: 1rem auto 0;          /* centraliza e afasta do card */
+  padding: .6rem 1.2rem;
+  border-radius: .5rem;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeIn .3s forwards;
+}
+
+
+.success {
+  background: #d4edda;
+  color: #155724;
+}
+.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* animação de entrada suave */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}

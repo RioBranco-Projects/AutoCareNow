@@ -1,0 +1,35 @@
+/* src/pages/AdminPage.module.css */
+
+.container {
+  padding: 1rem 2rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.userTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.userTable th,
+.userTable td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.userTable th {
+  background-color: #f0f0f0;
+}
+
+.userTable tr:hover {
+  background-color: #fafafa;
+}
+

@@ -1,94 +1,153 @@
 .board {
   display: flex;
-  width: auto;
   height: 100%;
-  gap: 0.5rem;
+  gap: 1rem;
+  padding: 1rem;
+  overflow-x: auto; /* rolagem horizontal se muitas colunas */
 }
 
 .column {
-  background: var(--accent);
-  border: 3px solid var(--accent);
+  flex: 1;
   display: flex;
-  transition: calc(.3s);
-  width: 100%;
   flex-direction: column;
-  height: 100%;
+  width: auto;
+  background: #fafafa;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* evita vazamento de sombras */
 }
 
 .header {
-  color: black;
-  border-bottom: 3px solid white;
-  transition: calc(.3s);
-  padding: 1rem;
+  padding: 0.75rem;
+  color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-shrink: 0;
+}
+
+.columnTitle {
+  font-size: 1.1rem;
+  margin: 0;
 }
 
 .count {
-  color: black;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .cards {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1;              /* ocupa espaço restante na coluna */
+  overflow-y: auto;     /* rolagem interna vertical para cards */
   padding: 0.5rem;
 }
 
 .card {
-  background: #f4f6f8;
-  border-radius: 4px;
-  padding: 1rem;
+  background: #ffffff;  /* fundo branco */
+  border-radius: 0.25rem;
+  padding: 0.75rem;
   margin-bottom: 0.75rem;
-  transition: calc(.3s);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* animação de hover */
 }
 
 .card:hover {
-  cursor: pointer;
-  transform: scale(1.020);
-}
-
-.cardTitle {
-  font-size: 1.2rem;
-  margin: 0 0 0.5rem;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .cardSubtitle {
-  font-size: 0.9rem;
-  color: black;
+  font-size: 0.85rem;
+  color: #555;
   margin: 0;
 }
+
+.cardTitle {
+  font-size: 1.05rem;
+  margin: 0.25rem 0;
+  color: #222;
+}
+
+/* Estilo para o parágrafo de status */
+.cardStatus {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.statusLabel {
+  font-weight: bold;
+  margin-left: 0.25rem;
+  text-transform: capitalize;
+}
+
 .cardDetails {
   font-size: 0.9rem;
-  color: black;
-  margin: 0 0 0.5rem;
+  color: #666;
+  margin: 0.25rem 0;
 }
 
 .cardInfo {
+  font-size: 0.75rem;
+  color: #999;
   display: flex;
   justify-content: space-between;
-  font-size: 0.75rem;
-  color: black;
-}
-.footer {
-  padding: 0.75rem;
-  text-align: center;
-  flex-shrink: 0;
+  margin-top: 0.5rem;
 }
 
-.footer button {
+.cardActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.editButton {
+  background-color: #2196f3;
+  color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
-  color: black;
-  border-radius: 4px;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.75rem;
   cursor: pointer;
-  font-weight: 500;
+  font-size: 0.85rem;
 }
 
-.footer button:hover {
-  opacity: 0.9;
+.editButton:hover {
+  background-color: #1976d2;
+}
+
+.deleteButton {
+  background-color: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.deleteButton:hover {
+  background-color: #c62828;
+}
+
+.footer {
+  padding: 0.5rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.addButton {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.addButton:hover {
+  background-color: #388e3c;
 }
 

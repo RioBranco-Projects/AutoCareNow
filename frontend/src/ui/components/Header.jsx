@@ -8,6 +8,7 @@ export default function Header({
   navLinks = [],
   onLogout,
   onSettings,
+  onAdmin
 }) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef();
@@ -24,13 +25,6 @@ export default function Header({
 
   return (
     <header className={styles.header}>
-      <div className={styles.left}>
-        <div className={styles.logo}>
-          <Link to="/home">
-            <img src={logoSrc} alt="Logo" />
-          </Link>
-        </div>
-      </div>
       <nav className={styles.nav}>
         {navLinks.map(({ to, label }) => (
           <Link key={to} to={to} className={styles.navLink}>
@@ -52,6 +46,9 @@ export default function Header({
             </button>
             <button onClick={onLogout} className={styles.dropdownItem}>
              Sair 
+            </button>
+            <button onClick={onAdmin} className={styles.dropdownItem}>
+             Admin 
             </button>
           </div>
         )}

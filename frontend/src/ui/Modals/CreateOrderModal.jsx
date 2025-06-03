@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './CreateOrderModal.module.css';
+import styles from './OrderModal.module.css';
 
 export default function CreateOrderModal({ isOpen, status, onClose, onCreate }) {
   const [customerName, setCustomerName] = useState('');
