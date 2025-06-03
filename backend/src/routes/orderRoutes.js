@@ -1,28 +1,26 @@
+
 import { Router } from 'express';
-import * as C from '../controllers/orderController.js';
+import {
+  listOrders,
+  getOrder,
+  createOrder,
+  updateOrder,
+  deleteOrder,
+  validateId,
+} from '../controllers/orderController.js';
+import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 const router = Router();
-router.get('/', C.listOrders);
 
-router.post('/', C.createOrder);
+// Todas as rotas de /orders exigem autenticação
+router.use(authMiddleware);
 
-router.get(
-  '/:id',
-  C.validators.validateId,
-  C.getOrder
-);
+router.get('/', listOrders);
+router.post('/', createOrder);
 
-router.put(
-  '/:id',
-  C.validators.validateId,
-  C.updateOrder
-);
-
-router.delete(
-  '/:id',
-  C.validators.validateId,
-  C.deleteOrder
-);
+router.get('/:id', validateId, getOrder);
+router.put('/:id', validateId, updateOrder);
+router.delete('/:id', validateId, deleteOrder);
 
 export default router;
 
